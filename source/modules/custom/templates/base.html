@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% block head -%}
+        <meta charset="utf-8">
+        <title>{% block title %}{% endblock -%}</title>
+        {% block stylesheets -%}
+        <link rel="stylesheet" href="{{ url_for('static', filename='custom/base.css') }}">
+        {% endblock stylesheets -%}
+        {% block javascript -%}
+        {% endblock javascript -%}
+        {% endblock head -%}
+    </head>
+    <body>
+        {% block body -%}
+        {% block content %}
+        {% endblock content -%}
+        {% block javascript_body -%}
+        {% endblock javascript_body -%}
+        {% endblock body -%}
+    </body>
+</html>

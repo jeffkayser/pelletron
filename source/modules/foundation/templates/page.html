@@ -1,0 +1,7 @@
+{% extends "foundation/base.html" %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block stylesheets -%}
+{{ super() -}}
+        <link href="stylesheet" href="/css/pygments.css">
+{% endblock -%}
+{% block content %}{{ page.html|safe }}{% endblock %}

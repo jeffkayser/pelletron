@@ -1,0 +1,62 @@
+{% extends "custom/base.html" %}
+{% block stylesheets %}
+{{ super() }}
+<style>
+    li { margin: 0.25em 0; }
+    ul.prompt { list-style: none; margin-left: 0; padding-left: 0; }
+    ul.prompt li { padding-left: 1em; text-indent: -1em; line-height: 1.5; margin: 0.5em 0; }
+    ul.prompt li:before { font-family: monospace; content: "$"; padding-right: 0.25em; }
+    code { font-family: monospace; font-size: 1.25; background-color: #eee; border: 1px solid #aaa; padding: 4px; }
+    h3 { margin-bottom: 0; }
+</style>
+{% endblock stylesheets %}
+{% block content %}
+<div>
+    <h1>Pelletron is working</h1>
+</div>
+<hr>
+<div>
+    <h2>Quickstart</h2>
+    <h3>Change front-end framework</h3>
+    <ul>
+        <li>Use <a href="http://getbootstrap.com/"><strong>Bootstrap</strong></a></li>
+        <ul class="prompt">
+            <li><code>python site.py use -f bootstrap</code></li>
+        </ul>
+        <li>Use <a href="http://foundation.zurb.com/"><strong>Foundation</strong></a></li>
+        <ul class="prompt">
+            <li><code>python site.py use -f foundation</code></li>
+        </ul>
+        <li>Use <a href="http://html5boilerplate.com/"><strong>HTML5 Boilerplate</strong></a></li>
+        <ul class="prompt">
+            <li><code>python site.py use -f html5boilerplate</code></li>
+        </ul>
+        <li>Use <strong>Pelletron default</strong> (no framework)</li>
+        <ul class="prompt">
+            <li><code>python site.py use -f custom</code></li>
+        </ul>
+    </ul>
+    <h3>Build static site</h3>
+    <ul class="prompt">
+        <li><code>python site.py build</code></li>
+    </ul>
+    <strong><em>Note</em></strong>: Previously built files are deleted during the build process. There's no need to remove them manually.
+    <h3>Deploy static site</h3>
+    <ul class="prompt">
+        <li><code>python site.py deploy -h host -u username -d directory</code></li>
+    </ul>
+</div>
+<div>
+    <h2>Documentation</h2>
+    <ul>
+        <li><a href="#">README</a></li>
+        <li><a href="#">LICENSE</a> (BSD)</li>
+    </ul>
+</div>
+<div>
+    <h2>Source code</h2>
+    <ul>
+        <li><a href="#">Github</a></li>
+    </ul>
+</div>
+{% endblock content %}

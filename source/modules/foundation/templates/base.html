@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock -%}</title>
+        {% block stylesheets -%}
+        <link rel="stylesheet" href="{{ url_for('static', filename='foundation/css/normalize.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='foundation/css/foundation.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='foundation/css/app.css') }}">
+        <style>
+            /*
+            body { padding-top: 50px; }
+            */
+            .navbar-jk { background-color: #540; box-shadow: 0 0 8px #333; border-bottom: 1px solid #540; }
+            .navbar-jk .top-bar-section .has-form { background-color: #540; }
+            .navbar-jk .top-bar-section li:not(.has-form) a:not(.button) { background-color: #540; }
+            .navbar-jk .top-bar-section li.active:not(.has-form) a:not(.button) { background-color: #fde47f; color: #540; }
+            .navbar-jk .top-bar-section ul li a { color: #fde47f; }
+            .navbar-jk .top-bar-section ul li a:hover { color: #fde47f; text-decoration: underline; }
+            .navbar-jk .top-bar-section ul li.active a { background-color: #fde47f; color: #540; font-weight: bold; }
+            .navbar-jk .top-bar-section ul li.active a { background-color: #fde47f; color: #540; font-weight: bold; }
+        </style>
+        {% endblock stylesheets -%}
+        {% block javascript -%}
+        <script src="{{ url_for('static', filename='foundation/js/vendor/modernizr.js') }}"></script>
+        {% endblock javascript -%}
+    </head>
+    <body>
+        {% block body -%}
+        <div class="row">
+            {% block nav -%}
+            {% endblock nav -%}
+            {% block content %}
+            {% endblock content -%}
+            {% block javascript_body -%}
+        </div>
+        <script src="{{ url_for('static', filename='foundation/js/vendor/jquery.js') }}"></script>
+        <script src="{{ url_for('static', filename='foundation/js/foundation.min.js') }}"></script>
+        <script>
+            $(document).foundation();
+        </script>
+        {% endblock javascript_body -%}
+        {% endblock body -%}
+    </body>
+</html>

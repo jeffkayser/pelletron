@@ -1,0 +1,1 @@
+PELLETRON_FRAMEWORK = 'foundation'
