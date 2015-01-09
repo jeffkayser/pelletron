@@ -1,1 +1,1 @@
-PELLETRON_FRAMEWORK = 'foundation'
+PELLETRON_FRAMEWORK = 'custom'
