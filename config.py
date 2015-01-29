@@ -33,3 +33,7 @@ FREEZER_REMOVE_EXTRA_FILES=False
 # >>> from pygments.styles import get_all_styles
 # >>> styles = list(get_all_styles())
 PYGMENTS_STYLE = 'tango'
+
+COMMENTS_ENABLED = True
+COMMENTS_SHOW_BY_DEFAULT = False
+COMMENTS_DISQUS_SHORTNAME = ''

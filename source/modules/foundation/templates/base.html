@@ -1,3 +1,4 @@
+{% set page_comments = config.COMMENTS_ENABLED and (comments or (comments != False and config.COMMENTS_SHOW_BY_DEFAULT)) -%}
 <!DOCTYPE html>
 <!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
 <html class="no-js" lang="en">
@@ -34,14 +35,31 @@
             {% endblock nav -%}
             {% block content %}
             {% endblock content -%}
+            {% if page_comments -%}
+            {% block comments -%}
+            <div id="disqus_thread"></div>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            {% endblock comments -%}
+            {% endif -%}
             {% block javascript_body -%}
+            <script src="{{ url_for('static', filename='foundation/js/vendor/jquery.js') }}"></script>
+            <script src="{{ url_for('static', filename='foundation/js/foundation.min.js') }}"></script>
+            <script>
+                $(document).foundation();
+            </script>
+            {% if page_comments -%}
+            <!-- Disqus -->
+            <script type="text/javascript">
+                var disqus_shortname = '{{ config.COMMENTS_DISQUS_SHORTNAME }}';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            {% endif -%}
+            {% endblock javascript_body -%}
         </div>
-        <script src="{{ url_for('static', filename='foundation/js/vendor/jquery.js') }}"></script>
-        <script src="{{ url_for('static', filename='foundation/js/foundation.min.js') }}"></script>
-        <script>
-            $(document).foundation();
-        </script>
-        {% endblock javascript_body -%}
         {% endblock body -%}
     </body>
 </html>
