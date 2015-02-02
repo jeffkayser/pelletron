@@ -20,10 +20,6 @@ def index():
 def quickstart():
     return render_template('{}/quickstart.html'.format(framework))
 
-@app.route('/about')
-def about():
-    return render_template('{}/about.html'.format(framework))
-
 @app.route('/<path:page>/')
 @app.route('/<path:page>')
 def page(page):
@@ -47,9 +43,3 @@ def favicon():
 @app.errorhandler(404)
 def error_page_not_found(error):
     return render_template('error-404.html'), 404
-
-@app.route('/sitemap.xml')
-def sitemap():
-    url_root = request.url_root[:-1]
-    rules = app.url_map.iter_rules()
-    return render_template('sitemap.xml', url_root=url_root, rules=rules)
