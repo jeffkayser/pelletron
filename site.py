@@ -9,6 +9,7 @@ import sys
 from flask import Flask
 from flask_frozen import Freezer
 
+import search
 from source import app
 
 APP_NAME = 'pelletron'
@@ -40,6 +41,8 @@ def build(args):
         print("[BUILD] Generating static site.")
     freezer = Freezer(app)
     freezer.freeze()
+    build_path = os.path.normpath(os.path.join(app.root_path, app.config['FREEZER_DESTINATION']))
+    search.build_search_index(build_path)
     return True
 
 def clean(args):
