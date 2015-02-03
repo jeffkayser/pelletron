@@ -43,7 +43,7 @@ def build(args):
     freezer.freeze()
     if app.config['SEARCH_ENABLED']:
         build_path = os.path.normpath(os.path.join(app.root_path, app.config['FREEZER_DESTINATION']))
-        search.build_search_index(build_path)
+        search.build_search_index(build_path, app.config['SEARCH_SKIP_FILES'])
     return True
 
 def clean(args):

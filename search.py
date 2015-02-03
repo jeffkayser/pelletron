@@ -129,13 +129,17 @@ def parse_file(filename, basedir):
     url = filename.replace(basedir, '')
     return url, title, ranked
 
-def parse_dir(dirname):
+def parse_dir(dirname, skip_files=None):
     data = {}
+    if skip_files is None:
+        skip_files = []
     for root, dirs, files in os.walk(dirname):
         for filename in files:
+            path = os.path.join(root, filename)
             if os.path.splitext(os.path.split(filename)[-1])[-1] in SEARCH_FILETYPES:
-                url, title, ranked = parse_file(os.path.join(root, filename), dirname)
-                data.update({url: [title, ranked]})
+                if path.replace(os.path.join(dirname, ''), '') not in skip_files:
+                    url, title, ranked = parse_file(os.path.join(root, filename), dirname)
+                    data.update({url: [title, ranked]})
     return data
 
 def consolidate_ranks(url_ranks):
@@ -180,8 +184,8 @@ def consolidate_ranks(url_ranks):
                 consolidated['words'][word][key].append([rank, freq])
     return consolidated
 
-def build_search_index(target_dir):
-    consolidated = consolidate_ranks(parse_dir(target_dir))
+def build_search_index(target_dir, skip_files=None):
+    consolidated = consolidate_ranks(parse_dir(target_dir, skip_files=None))
     with open(os.path.join(target_dir, OUTPUT_FILE), 'w') as f:
         json.dump(consolidated, f)
 

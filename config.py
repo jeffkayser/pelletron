@@ -13,6 +13,7 @@ DEPLOY_DELETE = False
 
 # Search settings
 SEARCH_ENABLED = True
+SEARCH_SKIP_FILES = []
 
 # Test server options. Overridable via the command-line
 SERVE_HOST = 'localhost'
