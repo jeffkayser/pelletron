@@ -1,4 +1,5 @@
 {% set page_comments = config.COMMENTS_ENABLED and (comments or (comments != False and config.COMMENTS_SHOW_BY_DEFAULT)) -%}
+{% set search = config.SEARCH_ENABLED -%}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -10,12 +11,9 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
         <style>
             body { padding-top: 50px; }
-            .navbar-jk { background-color: #540; box-shadow: 0 0 8px #333; border-bottom: 1px solid #540; height: 1em; }
-            .navbar-jk .navbar-inner { min-height: 0; }
-            .navbar-jk ul.nav li a { color: #fde47f; }
-            .navbar-jk ul.nav li a:hover { color: #fde47f; text-decoration: underline; }
-            .navbar-jk ul.nav li.active a { background-color: #fde47f; color: #540; font-weight: bold; }
-            .navbar-jk ul.nav li.active a:hover { background-color: #fde47f; color: #540; font-weight: bold; text-decoration: underline; }
+            .search-results { padding: inherit 1em; }
+            .search-results ul { padding: 0; margin: 0; }
+            .search-results li { list-style-type: none; }
         </style>
         {% endblock stylesheets -%}
         {% block javascript -%}
@@ -44,6 +42,12 @@
         {% block javascript_body -%}
         <script src="{{ url_for('static', filename='bootstrap/js/jquery-1.min.js') }}"></script>
         <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+        {% if search -%}
+        <script src="{{ url_for('static', filename='js/Snowball.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/search.js') }}"></script>
+        <script src="{{ url_for('static', filename='bootstrap/js/search-ui.js') }}"></script>
+        </script>
+        {% endif -%}
         {% if page_comments -%}
         <!-- Disqus -->
         <script type="text/javascript">
@@ -53,6 +57,17 @@
                 dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
                 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
             })();
+        </script>
+        {% endif -%}
+        {% if search -%}
+        <!-- Search -->
+        <script>
+        $(document).ready(function() {
+            init_search();
+            $('.searchbox').on('keyup cut paste', function() {
+                search(this.value);
+            });
+        });
         </script>
         {% endif -%}
         {% endblock javascript_body -%}
