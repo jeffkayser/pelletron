@@ -32,6 +32,11 @@ def page(page):
     #except TemplateNotFound:
     #    abort(404)
 
+if app.config['PELLETRON_ACTION'] == 'serve':
+    @app.route('/search.json')
+    def search_index():
+        return send_from_directory(os.path.normpath(os.path.join(app.root_path, app.config['FREEZER_DESTINATION'])), 'search.json', mimetype='application/json')
+
 @app.route('/css/pygments.css')
 def pygments_css():
     return pygments_style_defs(app.config['PYGMENTS_STYLE']), 200, {'Content-Type': 'text/css'}
