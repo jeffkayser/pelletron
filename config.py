@@ -11,6 +11,9 @@ DEPLOY_DIR = 'pelletron'
 DEPLOY_NO_MAKE_DIR = False
 DEPLOY_DELETE = False
 
+# Search settings
+SEARCH_ENABLED = True
+
 # Test server options. Overridable via the command-line
 SERVE_HOST = 'localhost'
 SERVE_PORT = 5050

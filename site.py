@@ -41,8 +41,9 @@ def build(args):
         print("[BUILD] Generating static site.")
     freezer = Freezer(app)
     freezer.freeze()
-    build_path = os.path.normpath(os.path.join(app.root_path, app.config['FREEZER_DESTINATION']))
-    search.build_search_index(build_path)
+    if app.config['SEARCH_ENABLED']:
+        build_path = os.path.normpath(os.path.join(app.root_path, app.config['FREEZER_DESTINATION']))
+        search.build_search_index(build_path)
     return True
 
 def clean(args):
