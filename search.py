@@ -118,29 +118,31 @@ def extract_structural(doc):
     return ranked
 
 def parse_file(filename, basedir):
-    print("** Parsing: {}".format(filename))
+    print("Parsing: {}".format(filename))
     doc = lxml.html.parse(filename)
+    title = get_tag_content(get_tag(doc, 'head/title')[0])
     ranked = extract_structural(doc)
     cleaner(doc)
     etree.strip_tags(doc, '*')
     text = get_text(doc.getroot()).lower()
     ranked.append(get_words(text))
     url = filename.replace(basedir, '')
-    return url, ranked
+    return url, title, ranked
 
 def parse_dir(dirname):
     data = {}
     for root, dirs, files in os.walk(dirname):
         for filename in files:
             if os.path.splitext(os.path.split(filename)[-1])[-1] in SEARCH_FILETYPES:
-                url, ranked = parse_file(os.path.join(root, filename), dirname)
-                data.update({url: ranked})
+                url, title, ranked = parse_file(os.path.join(root, filename), dirname)
+                data.update({url: [title, ranked]})
     return data
 
 def consolidate_ranks(url_ranks):
     """Consolidate search index into the following format:
         {
             "urls": ["<url-1>", ..., "<url-n>"],
+            "titles": ["<title-for-url-1>", ..., "<title-for-url-n>"],
             "words": {
                 "word-1": {
                     <url-index-1>: [
@@ -162,10 +164,12 @@ def consolidate_ranks(url_ranks):
         }
     """
     urls = url_ranks.keys()
-    consolidated = {"urls": urls, "words": {}}
+    titles = []
+    consolidated = {"urls": urls, "titles": titles, "words": {}}
     urlmap = dict(zip(list(url_ranks.keys()), range(len(url_ranks.keys()))))
-    for url, ranked in url_ranks.items():
+    for url, (title, ranked) in url_ranks.items():
         key = urlmap[url]
+        titles.append(title)
         for rank, words in enumerate(ranked):
             for word in words.keys():
                 freq = words[word]
