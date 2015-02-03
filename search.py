@@ -185,7 +185,7 @@ def consolidate_ranks(url_ranks):
     return consolidated
 
 def build_search_index(target_dir, skip_files=None):
-    consolidated = consolidate_ranks(parse_dir(target_dir, skip_files=None))
+    consolidated = consolidate_ranks(parse_dir(target_dir, skip_files))
     with open(os.path.join(target_dir, OUTPUT_FILE), 'w') as f:
         json.dump(consolidated, f)
 
