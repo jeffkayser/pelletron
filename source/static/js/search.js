@@ -3,6 +3,7 @@ var SEARCH_LANGUAGE = 'english';
 var search_index = null;
 var search_stemmer = null;
 var search_view = null;
+var PUNCTUATION = /[\u2000-\u206F\u2E00-\u2E7F\\'!"#\$%&\(\)\*\+,\-\.\/:;<=>\?@\[\]\^_`\{\|\}~]/g;
 
 function init_search(lang) {
     if(lang === undefined) {
@@ -14,6 +15,10 @@ function init_search(lang) {
 
 function load_index(url) {
     $.getJSON(url, function(data) { search_index = data; });
+}
+
+function strip_punctuation(text) {
+    return text.replace(PUNCTUATION, ' ');
 }
 
 function stem(word) {
@@ -30,7 +35,7 @@ function search(text) {
         return;
     }
 
-    text = text.trim();
+    text = strip_punctuation(text).trim();
     if(text == '') {
         update_search_ui(null);
     }
