@@ -87,7 +87,7 @@ cleaner = Cleaner(
         safe_attrs_only=False, add_nofollow=False)
 
 def strip_punc(text):
-    return ''.join(x for x in text if unicodedata.category(x) not in PUNCTUATION)
+    return ' '.join(x for x in text if unicodedata.category(x) not in PUNCTUATION)
 
 stemmer = snowballstemmer.stemmer('english');
 def get_words(text, remove_punc=True, stem=True, remove_stopwords=True):
